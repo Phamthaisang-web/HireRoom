@@ -1,0 +1,109 @@
+### Lấy danh sách chủ trọ
+GET http://localhost:8080/landlords
+
+### Lấy danh sách chủ trọ có phân trang
+GET http://localhost:8080/landlords?page=1&limit=5
+
+### Lấy danh sách chủ trọ có tìm kiếm
+GET http://localhost:8080/landlords?keyword=Nguyen
+
+### Lấy danh sách chủ trọ có lọc theo trạng thái
+GET http://localhost:8080/landlords?status=đang hợp tác
+
+### Lấy danh sách chủ trọ có tìm kiếm + lọc + phân trang
+GET http://localhost:8080/landlords?page=1&limit=10&keyword=0909&status=đang hợp tác
+
+### Lấy chi tiết chủ trọ theo id
+GET http://localhost:8080/landlords/1
+
+### Tạo mới chủ trọ
+POST http://localhost:8080/landlords
+Content-Type: application/json
+
+{
+  "fullName": "Nguyen Van A",
+  "phone": "0909123456",
+  "zalo": "0909123456",
+  "facebook": "https://facebook.com/nguyenvana",
+  "note": "Chủ trọ khu vực quận 9, hợp tác lâu dài",
+  "status": "đang hợp tác"
+}
+
+### Tạo mới chủ trọ khác
+POST http://localhost:8080/landlords
+Content-Type: application/json
+
+{
+  "fullName": "Tran Thi B",
+  "phone": "0911222333",
+  "zalo": "0911222333",
+  "facebook": "https://facebook.com/tranthib",
+  "note": "Có nhiều phòng cho sinh viên thuê",
+  "status": "đang hợp tác"
+}
+
+### Tạo mới thiếu dữ liệu
+POST http://localhost:8080/landlords
+Content-Type: application/json
+
+{
+  "fullName": "Le Van C"
+}
+
+### Tạo mới bị trùng số điện thoại
+POST http://localhost:8080/landlords
+Content-Type: application/json
+
+{
+  "fullName": "Nguyen Van A",
+  "phone": "0909123456",
+  "zalo": "0909123456",
+  "facebook": "https://facebook.com/nguyenvana",
+  "note": "Test trùng số điện thoại",
+  "status": "đang hợp tác"
+}
+
+### Cập nhật toàn bộ thông tin chủ trọ
+PUT http://localhost:8080/landlords/1
+Content-Type: application/json
+
+{
+  "fullName": "Nguyen Van A Updated",
+  "phone": "0909999999",
+  "zalo": "0909999999",
+  "facebook": "https://facebook.com/nguyenvana.updated",
+  "note": "Đã cập nhật thông tin chủ trọ",
+  "status": "tạm ngưng"
+}
+
+### Cập nhật trạng thái chủ trọ
+PUT http://localhost:8080/landlords/1
+Content-Type: application/json
+
+{
+  "fullName": "Nguyen Van A Updated",
+  "phone": "0909999999",
+  "zalo": "0909999999",
+  "facebook": "https://facebook.com/nguyenvana.updated",
+  "note": "Chỉ đổi trạng thái",
+  "status": "ngừng hợp tác"
+}
+
+### Cập nhật chủ trọ không tồn tại
+PUT http://localhost:8080/landlords/999
+Content-Type: application/json
+
+{
+  "fullName": "Not Found",
+  "phone": "0999888777",
+  "zalo": "0999888777",
+  "facebook": "https://facebook.com/notfound",
+  "note": "Không tồn tại",
+  "status": "đang hợp tác"
+}
+
+### Xóa chủ trọ theo id
+DELETE http://localhost:8080/landlords/1
+
+### Xóa chủ trọ không tồn tại
+DELETE http://localhost:8080/landlords/999

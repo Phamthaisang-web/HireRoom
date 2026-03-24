@@ -1,0 +1,93 @@
+### Lấy danh sách phòng
+GET http://localhost:8080/rooms
+
+### Lấy danh sách phòng có phân trang
+GET http://localhost:8080/rooms?page=1&limit=5
+
+### Lọc theo từ khóa
+GET http://localhost:8080/rooms?keyword=quận 9
+
+### Lọc theo trạng thái
+GET http://localhost:8080/rooms?status=còn trống
+
+### Lọc theo thành phố
+GET http://localhost:8080/rooms?city=Hồ Chí Minh
+
+### Lọc theo quận
+GET http://localhost:8080/rooms?district=Quận 9
+
+### Lọc theo loại phòng
+GET http://localhost:8080/rooms?type=phòng trọ
+
+### Lọc theo giá
+GET http://localhost:8080/rooms?minPrice=2000000&maxPrice=5000000
+
+### Lọc theo chủ trọ
+GET http://localhost:8080/rooms?landlordId=1
+
+### Lọc tổng hợp
+GET http://localhost:8080/rooms?page=1&limit=10&keyword=gần đại học&status=còn trống&city=Hồ Chí Minh&district=Quận 9&type=phòng trọ&minPrice=2000000&maxPrice=5000000&landlordId=1
+
+### Lấy chi tiết phòng theo id
+GET http://localhost:8080/rooms/1
+
+### Tạo phòng mới
+POST http://localhost:8080/rooms
+Content-Type: application/json
+
+{
+  "title": "Phòng trọ gần đại học, có gác",
+  "description": "Phòng rộng, sạch sẽ, gần trường, giờ giấc tự do",
+  "price": 3500000,
+  "area": 25,
+  "address": "123 Lê Văn Việt",
+  "city": "Hồ Chí Minh",
+  "district": "Quận 9",
+  "ward": "Phường Hiệp Phú",
+  "latitude": 10.8459231,
+  "longitude": 106.7943211,
+  "status": "còn trống",
+  "type": "phòng trọ",
+  "electricPrice": 3500,
+  "waterPrice": 15000,
+  "internetPrice": 100000,
+  "maxPeople": 3,
+  "furniture": "máy lạnh, tủ lạnh, giường",
+  "landlordId": 1
+}
+
+### Tạo phòng thiếu dữ liệu
+POST http://localhost:8080/rooms
+Content-Type: application/json
+
+{
+  "title": "Phòng test"
+}
+
+### Cập nhật phòng
+PUT http://localhost:8080/rooms/1
+Content-Type: application/json
+
+{
+  "title": "Phòng trọ mới sửa, có gác rộng",
+  "description": "Phòng đẹp hơn sau khi sửa",
+  "price": 4000000,
+  "area": 28,
+  "address": "123 Lê Văn Việt",
+  "city": "Hồ Chí Minh",
+  "district": "Quận 9",
+  "ward": "Phường Hiệp Phú",
+  "latitude": 10.8459231,
+  "longitude": 106.7943211,
+  "status": "đã thuê",
+  "type": "phòng studio",
+  "electricPrice": 4000,
+  "waterPrice": 18000,
+  "internetPrice": 120000,
+  "maxPeople": 2,
+  "furniture": "máy lạnh, máy giặt, giường, tủ quần áo",
+  "landlordId": 1
+}
+
+### Xóa phòng
+DELETE http://localhost:8080/rooms/1

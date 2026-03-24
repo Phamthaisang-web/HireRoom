@@ -1,0 +1,49 @@
+### Lấy danh sách ảnh phòng
+GET http://localhost:8080/image-rooms
+
+### Lấy danh sách ảnh phòng có phân trang
+GET http://localhost:8080/image-rooms?page=1&limit=5
+
+### Lọc ảnh theo roomId
+GET http://localhost:8080/image-rooms?roomId=1
+
+### Lấy chi tiết ảnh phòng theo id
+GET http://localhost:8080/image-rooms/1
+
+### Tạo ảnh phòng mới
+POST http://localhost:8080/image-rooms
+Content-Type: application/json
+
+{
+  "roomId": 1,
+  "imageUrl": "https://example.com/images/room-1.jpg"
+}
+
+### Tạo thêm ảnh khác cho phòng
+POST http://localhost:8080/image-rooms
+Content-Type: application/json
+
+{
+  "roomId": 1,
+  "imageUrl": "https://example.com/images/room-1-2.jpg"
+}
+
+### Tạo ảnh thiếu dữ liệu
+POST http://localhost:8080/image-rooms
+Content-Type: application/json
+
+{
+  "roomId": 1
+}
+
+### Cập nhật ảnh phòng
+PUT http://localhost:8080/image-rooms/1
+Content-Type: application/json
+
+{
+  "roomId": 1,
+  "imageUrl": "https://example.com/images/room-1-updated.jpg"
+}
+
+### Xóa ảnh phòng
+DELETE http://localhost:8080/image-rooms/1
