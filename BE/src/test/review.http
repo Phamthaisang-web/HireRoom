@@ -1,0 +1,22 @@
+### 1. Lấy review của phòng 1
+GET http://localhost:8080/reviews/room/1
+
+### 2. Gửi review (Thay token thật vào)
+POST http://localhost:8080/reviews
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiIgd3d3d3d3d3d3d1Row6FpIFNhbmciLCJpYXQiOjE3NzQ0NjIzMTAsImV4cCI6MTc3NDU0ODcxMH0.GfeCNInT3bBrstqh7iLdeTKPwJK_xFcWb_HEU0ajotw
+
+{
+  "roomId": 1,
+  "rating": 5,
+  "comment": "Phòng tuyệt vời!"
+}
+
+### 3. Admin duyệt review
+PATCH http://localhost:8080/reviews/1/status
+Content-Type: application/json
+Authorization: Bearer ADMIN_TOKEN_HERE
+
+{
+  "status": "đã duyệt"
+}

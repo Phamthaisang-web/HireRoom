@@ -1,0 +1,61 @@
+### ❤️ Toggle favorite (like / unlike)
+POST http://localhost:8080/favorites/toggle
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzc0NDU4NDk2LCJleHAiOjE3NzQ1NDQ4OTZ9.HbOPBUEZWLtF2xz0N_04E9OoltrYPoe_R7Z_geYqlRM
+Content-Type: application/json
+
+{
+  "roomId": 1
+}
+
+###
+
+### ❤️ Toggle lại (unlike)
+POST http://localhost:8080/favorites/toggle
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzc0NDU4NDk2LCJleHAiOjE3NzQ1NDQ4OTZ9.HbOPBUEZWLtF2xz0N_04E9OoltrYPoe_R7Z_geYqlRM
+Content-Type: application/json
+
+{
+  "roomId": 1
+}
+
+###
+
+### 📌 Lấy danh sách phòng đã yêu thích
+GET http://localhost:8080/favorites/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzc0NDU4NDk2LCJleHAiOjE3NzQ1NDQ4OTZ9.HbOPBUEZWLtF2xz0N_04E9OoltrYPoe_R7Z_geYqlRM
+
+###
+
+### 🔍 Check 1 phòng đã favorite chưa
+GET http://localhost:8080/favorites/check/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzc0NDU4NDk2LCJleHAiOjE3NzQ1NDQ4OTZ9.HbOPBUEZWLtF2xz0N_04E9OoltrYPoe_R7Z_geYqlRM
+
+###
+
+### ❌ Test thiếu token
+POST http://localhost:8080/favorites/toggle
+Content-Type: application/json
+
+{
+  "roomId": 1
+}
+
+###
+
+### ❌ Test thiếu roomId
+POST http://localhost:8080/favorites/toggle
+Authorization: Bearer YOUR_TOKEN_HERE
+Content-Type: application/json
+
+{}
+
+###
+
+### ❌ Test room không tồn tại
+POST http://localhost:8080/favorites/toggle
+Authorization: Bearer YOUR_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "roomId": 9999
+}

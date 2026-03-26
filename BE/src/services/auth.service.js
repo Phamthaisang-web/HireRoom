@@ -55,6 +55,7 @@ const login = async (data) => {
     {
       id: user.id,
       role: user.role,
+      fullName: user.fullName,
     },
     "SECRET_KEY",
     {
