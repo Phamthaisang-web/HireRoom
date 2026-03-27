@@ -19,6 +19,7 @@ GET http://localhost:8080/landlords/1
 ### Tạo mới chủ trọ
 POST http://localhost:8080/landlords
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0NjA1NTk4LCJleHAiOjE3NzQ2OTE5OTh9.ZTMSaWV-J3j9IJm8inoPDqhrW6Cv7P84I_InvLgNjXk
 
 {
   "fullName": "Nguyen Van A",

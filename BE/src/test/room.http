@@ -1,8 +1,8 @@
 ### Lấy danh sách phòng
-GET http://localhost:8080/rooms
+GET http://localhost:8080/rooms?keyword=phòng%20trọ
 
 ### Lấy danh sách phòng có phân trang
-GET http://localhost:8080/rooms?page=1&limit=5
+GET http://localhost:8080/rooms?page=1&limit=10
 
 ### Lọc theo từ khóa
 GET http://localhost:8080/rooms?keyword=quận 9
@@ -17,7 +17,7 @@ GET http://localhost:8080/rooms?city=Hồ Chí Minh
 GET http://localhost:8080/rooms?district=Quận 9
 
 ### Lọc theo loại phòng
-GET http://localhost:8080/rooms?type=phòng trọ
+GET http://localhost:8080/rooms?type=Chung cư
 
 ### Lọc theo giá
 GET http://localhost:8080/rooms?minPrice=2000000&maxPrice=5000000
@@ -34,9 +34,10 @@ GET http://localhost:8080/rooms/1
 ### Tạo phòng mới
 POST http://localhost:8080/rooms
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0NjA1NTk4LCJleHAiOjE3NzQ2OTE5OTh9.ZTMSaWV-J3j9IJm8inoPDqhrW6Cv7P84I_InvLgNjXk
 
 {
-  "title": "Phòng trọ gần đại học, có gác",
+  "title": "Phòng trọ gần duysssss tân",
   "description": "Phòng rộng, sạch sẽ, gần trường, giờ giấc tự do",
   "price": 3500000,
   "area": 25,
@@ -47,7 +48,7 @@ Content-Type: application/json
   "latitude": 10.8459231,
   "longitude": 106.7943211,
   "status": "còn trống",
-  "type": "phòng trọ",
+  "type": "Chung cư",
   "electricPrice": 3500,
   "waterPrice": 15000,
   "internetPrice": 100000,

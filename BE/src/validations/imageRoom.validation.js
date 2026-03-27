@@ -12,7 +12,7 @@ const createImageRoomSchema = yup.object({
   imageUrl: yup
     .string()
     .required("imageUrl không được để trống")
-    .url("imageUrl phải là URL hợp lệ"),
+    
 });
 
 // Validation cho cập nhật image room

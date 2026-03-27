@@ -22,8 +22,8 @@ app.use("/image-rooms", imageRoomRouter);
 app.use("/api/chat", chatRouter);
 app.use("/favorites", favoriteRouter);
 app.use("/reviews", reviewRouter);
-app.use("/reply", replyRouter);
-app.use("/event", eventRouter);
+app.use("/replys", replyRouter);
+app.use("/events", eventRouter);
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.get("/", (req, res) => {
   res.send("heloword");

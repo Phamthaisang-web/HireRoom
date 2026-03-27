@@ -1,0 +1,82 @@
+### =================================================================
+### BIẾN TOÀN CỤC (Thay đổi giá trị ở đây để áp dụng cho toàn bộ file)
+### =================================================================
+@baseUrl = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... (Dán Token Admin của bạn vào đây)
+@eventId = 1
+
+### -----------------------------------------------------------------
+### 1. LẤY DANH SÁCH TẤT CẢ SỰ KIỆN
+### -----------------------------------------------------------------
+GET {{baseUrl}}/events
+Content-Type: application/json
+
+### -----------------------------------------------------------------
+### 2. LẤY CHI TIẾT SỰ KIỆN THEO ID
+### -----------------------------------------------------------------
+GET {{baseUrl}}/events/{{eventId}}
+Content-Type: application/json
+
+### -----------------------------------------------------------------
+### 3. TẠO SỰ KIỆN MỚI (Thành công)
+### -----------------------------------------------------------------
+POST {{baseUrl}}/events
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0NjA1NTk4LCJleHAiOjE3NzQ2OTE5OTh9.ZTMSaWV-J3j9IJm8inoPDqhrW6Cv7P84I_InvLgNjXk
+
+{
+  "title": "Hội thảo Tìm kiếm Nhà trọ Giá rẻ 2026",
+  "description": "Buổi chia sẻ kinh nghiệm thuê phòng tránh lừa đảo cho tân sinh viên.",
+  "image": "https://picsum.photos/800/600",
+  "startDate": "2026-06-15T08:00:00Z",
+  "endDate": "2026-06-15T11:30:00Z",
+  "location": "Hội trường A, Đại học Công nghệ TP.HCM",
+  "status": "sắp diễn ra"
+}
+
+### -----------------------------------------------------------------
+### 4. TẠO SỰ KIỆN LỖI (Thiếu trường bắt buộc - Test Validation)
+### -----------------------------------------------------------------
+POST {{baseUrl}}/events
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0NjA1NTk4LCJleHAiOjE3NzQ2OTE5OTh9.ZTMSaWV-J3j9IJm8inoPDqhrW6Cv7P84I_InvLgNjXk
+
+{
+  "title": "Sự kiện thiếu dữ liệu",
+  "status": "sắp diễn ra"
+}
+
+### -----------------------------------------------------------------
+### 5. TẠO SỰ KIỆN LỖI (Ngày kết thúc < Ngày bắt đầu - Test Logic Yup)
+### -----------------------------------------------------------------
+POST {{baseUrl}}/events
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Sự kiện sai thời gian",
+  "description": "Test logic thời gian",
+  "startDate": "2026-12-31T10:00:00Z",
+  "endDate": "2026-12-01T10:00:00Z",
+  "location": "Online",
+  "status": "sắp diễn ra"
+}
+
+### -----------------------------------------------------------------
+### 6. CẬP NHẬT SỰ KIỆN
+### -----------------------------------------------------------------
+PUT {{baseUrl}}/events/{{eventId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Hội thảo Tìm kiếm Nhà trọ (Đã cập nhật tiêu đề)",
+  "status": "đang diễn ra",
+  "location": "Phòng Zoom 01 - Link đính kèm sau"
+}
+
+### -----------------------------------------------------------------
+### 7. XÓA SỰ KIỆN
+### -----------------------------------------------------------------
+DELETE {{baseUrl}}/events/{{eventId}}
+Authorization: Bearer {{token}}

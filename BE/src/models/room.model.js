@@ -33,7 +33,6 @@ const findRoomById = async (id) => {
   const [rows] = await pool.execute(sql, [id]);
   return rows[0];
 };
-
 const getAllRooms = async ({
   page = 1,
   limit = 10,
@@ -41,115 +40,86 @@ const getAllRooms = async ({
   status = "",
   city = "",
   district = "",
+  ward = "", // Thêm lọc phường/xã
   type = "",
   minPrice = "",
   maxPrice = "",
   landlordId = "",
 }) => {
   const offset = (page - 1) * limit;
+  const params = [];
+  
+  // Base query cho dữ liệu và đếm
+  let whereClause = " WHERE 1 = 1";
 
-  let sql = `
-    SELECT 
-      r.id,
-      r.title,
-      r.description,
-      r.price,
-      r.area,
-      r.address,
-      r.city,
-      r.district,
-      r.ward,
-      r.latitude,
-      r.longitude,
-      r.status,
-      r.type,
-      r.electricPrice,
-      r.waterPrice,
-      r.internetPrice,
-      r.maxPeople,
-      r.furniture,
-      r.landlordId,
-      r.createdAt,
-      r.updatedAt,
-      l.fullName AS landlordName,
-      l.phone AS landlordPhone
+  // Lọc theo từ khóa (Tiêu đề, Địa chỉ cụ thể, Mô tả)
+  if (keyword) {
+    whereClause += ` AND (r.title LIKE ? OR r.address LIKE ? OR r.description LIKE ?)`;
+    const searchVal = `%${keyword}%`;
+    params.push(searchVal, searchVal, searchVal);
+  }
+
+  // Lọc theo Địa giới hành chính (City -> District -> Ward)
+  if (city) {
+    whereClause += ` AND r.city = ?`;
+    params.push(city);
+  }
+  if (district) {
+    whereClause += ` AND r.district = ?`;
+    params.push(district);
+  }
+  if (ward) {
+    whereClause += ` AND r.ward = ?`;
+    params.push(ward);
+  }
+
+  // Lọc theo trạng thái và loại phòng
+  if (status) {
+    whereClause += ` AND r.status = ?`;
+    params.push(status);
+  }
+  if (type) {
+    whereClause += ` AND r.type = ?`;
+    params.push(type);
+  }
+
+  // Lọc theo khoảng giá
+  if (minPrice !== "") {
+    whereClause += ` AND r.price >= ?`;
+    params.push(Number(minPrice));
+  }
+  if (maxPrice !== "") {
+    whereClause += ` AND r.price <= ?`;
+    params.push(Number(maxPrice));
+  }
+
+  // Lọc theo chủ nhà
+  if (landlordId) {
+    whereClause += ` AND r.landlordId = ?`;
+    params.push(Number(landlordId));
+  }
+
+  // SQL chính lấy dữ liệu
+  const sql = `
+    SELECT r.*, l.fullName AS landlordName, l.phone AS landlordPhone
     FROM rooms r
     JOIN landlords l ON r.landlordId = l.id
-    WHERE 1 = 1
+    ${whereClause}
+    ORDER BY r.id DESC
+    LIMIT ? OFFSET ?
   `;
 
-  let countSql = `
+  // SQL đếm tổng số bản ghi (Dùng chung whereClause và params nhưng không có LIMIT/OFFSET)
+  const countSql = `
     SELECT COUNT(*) AS total
     FROM rooms r
     JOIN landlords l ON r.landlordId = l.id
-    WHERE 1 = 1
+    ${whereClause}
   `;
 
-  const params = [];
-  const countParams = [];
-
-  if (keyword) {
-    sql += ` AND (r.title LIKE ? OR r.address LIKE ? OR r.description LIKE ?)`;
-    countSql += ` AND (r.title LIKE ? OR r.address LIKE ? OR r.description LIKE ?)`;
-
-    params.push(`%${keyword}%`, `%${keyword}%`, `%${keyword}%`);
-    countParams.push(`%${keyword}%`, `%${keyword}%`, `%${keyword}%`);
-  }
-
-  if (status) {
-    sql += ` AND r.status = ?`;
-    countSql += ` AND r.status = ?`;
-    params.push(status);
-    countParams.push(status);
-  }
-
-  if (city) {
-    sql += ` AND r.city = ?`;
-    countSql += ` AND r.city = ?`;
-    params.push(city);
-    countParams.push(city);
-  }
-
-  if (district) {
-    sql += ` AND r.district = ?`;
-    countSql += ` AND r.district = ?`;
-    params.push(district);
-    countParams.push(district);
-  }
-
-  if (type) {
-    sql += ` AND r.type = ?`;
-    countSql += ` AND r.type = ?`;
-    params.push(type);
-    countParams.push(type);
-  }
-
-  if (minPrice !== "") {
-    sql += ` AND r.price >= ?`;
-    countSql += ` AND r.price >= ?`;
-    params.push(Number(minPrice));
-    countParams.push(Number(minPrice));
-  }
-
-  if (maxPrice !== "") {
-    sql += ` AND r.price <= ?`;
-    countSql += ` AND r.price <= ?`;
-    params.push(Number(maxPrice));
-    countParams.push(Number(maxPrice));
-  }
-
-  if (landlordId) {
-    sql += ` AND r.landlordId = ?`;
-    countSql += ` AND r.landlordId = ?`;
-    params.push(Number(landlordId));
-    countParams.push(Number(landlordId));
-  }
-
-  sql += ` ORDER BY r.id DESC LIMIT ? OFFSET ?`;
-  params.push(Number(limit), Number(offset));
-
-  const [rows] = await pool.execute(sql, params);
-  const [countRows] = await pool.execute(countSql, countParams);
+  // Thực thi truy vấn
+  const [rows] = await pool.execute(sql, [...params, Number(limit), Number(offset)]);
+  const [countRows] = await pool.execute(countSql, params);
 
   const totalItems = countRows[0].total;
   const totalPages = Math.ceil(totalItems / limit);
@@ -162,16 +132,7 @@ const getAllRooms = async ({
       totalItems,
       totalPages,
     },
-    filters: {
-      keyword,
-      status,
-      city,
-      district,
-      type,
-      minPrice,
-      maxPrice,
-      landlordId,
-    },
+    filters: { keyword, status, city, district, ward, type, minPrice, maxPrice, landlordId },
   };
 };
 

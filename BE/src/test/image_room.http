@@ -1,5 +1,5 @@
 ### Lấy danh sách ảnh phòng
-GET http://localhost:8080/image-rooms
+GET http://localhost:8080/image-rooms/1
 
 ### Lấy danh sách ảnh phòng có phân trang
 GET http://localhost:8080/image-rooms?page=1&limit=5
@@ -15,8 +15,8 @@ POST http://localhost:8080/image-rooms
 Content-Type: application/json
 
 {
-  "roomId": 1,
-  "imageUrl": "https://example.com/images/room-1.jpg"
+  "roomId": 3,
+  "imageUrl": "/uploads/rooms/image.png"
 }
 
 ### Tạo thêm ảnh khác cho phòng
@@ -25,7 +25,7 @@ Content-Type: application/json
 
 {
   "roomId": 1,
-  "imageUrl": "https://example.com/images/room-1-2.jpg"
+  "imageUrl": "/uproom-1-2.jpg"
 }
 
 ### Tạo ảnh thiếu dữ liệu
@@ -47,3 +47,5 @@ Content-Type: application/json
 
 ### Xóa ảnh phòng
 DELETE http://localhost:8080/image-rooms/1
+### 
+http://localhost:8080/uploads/rooms/image.png
