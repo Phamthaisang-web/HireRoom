@@ -8,7 +8,7 @@ const validateSchemaYup = (schema) => async (req, res, next) => {
     req.body = validatedData;
     next();
   } catch (error) {
-    // lấy tất cả lỗi từng field
+    
     const errors = error.inner && error.inner.length > 0
       ? error.inner.map(err => err.message)
       : [error.message];

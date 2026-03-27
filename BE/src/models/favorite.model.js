@@ -1,6 +1,6 @@
 const pool = require("../config/db");
 
-// thêm vào yêu thích
+
 const addFavorite = async (userId, roomId) => {
   const sql = `
     INSERT INTO favorites (userId, roomId)
@@ -9,7 +9,7 @@ const addFavorite = async (userId, roomId) => {
   await pool.execute(sql, [userId, roomId]);
 };
 
-// xoá yêu thích
+
 const removeFavorite = async (userId, roomId) => {
   const sql = `
     DELETE FROM favorites
@@ -18,7 +18,6 @@ const removeFavorite = async (userId, roomId) => {
   await pool.execute(sql, [userId, roomId]);
 };
 
-// check đã favorite chưa
 const checkFavorite = async (userId, roomId) => {
   const sql = `
     SELECT * FROM favorites
@@ -28,7 +27,6 @@ const checkFavorite = async (userId, roomId) => {
   return rows.length > 0;
 };
 
-// lấy danh sách phòng yêu thích
 const getFavoriteRooms = async (userId) => {
   const sql = `
     SELECT 

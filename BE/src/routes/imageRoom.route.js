@@ -2,6 +2,7 @@ const imageRoomController = require("../controllers/imageRoom.controller");
 const validateSchemaYup = require("../middlewares/validateSchemaYup");
 const imageRoomValidation= require("../validations/imageRoom.validation");
 const upload = require('../middlewares/upload');
+
 const express = require("express");
 const router = express.Router();
 
