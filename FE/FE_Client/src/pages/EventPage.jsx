@@ -24,7 +24,7 @@ export default function EventsPage() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-blue-100">
-      <Header />
+      
 
       {/* Hero Section - Typography cực đại, tối giản chi tiết */}
       <header className="pt-40 pb-20 px-6 border-b border-gray-50">

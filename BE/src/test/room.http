@@ -17,7 +17,7 @@ GET http://localhost:8080/rooms?city=Hồ Chí Minh
 GET http://localhost:8080/rooms?district=Quận 9
 
 ### Lọc theo loại phòng
-GET http://localhost:8080/rooms?type=Chung cư
+GET http://localhost:8080/rooms?city=Hồ chí minh
 
 ### Lọc theo giá
 GET http://localhost:8080/rooms?minPrice=2000000&maxPrice=5000000
@@ -34,7 +34,7 @@ GET http://localhost:8080/rooms/1
 ### Tạo phòng mới
 POST http://localhost:8080/rooms
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0NjA1NTk4LCJleHAiOjE3NzQ2OTE5OTh9.ZTMSaWV-J3j9IJm8inoPDqhrW6Cv7P84I_InvLgNjXk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0Njk0ODQ0LCJleHAiOjE3NzQ3ODEyNDR9.UT6rwCHFMQGUZ2m_B7Up6IuMShhecsXqnXY9FaZKdpU
 
 {
   "title": "Phòng trọ gần duysssss tân",
@@ -42,7 +42,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6I
   "price": 3500000,
   "area": 25,
   "address": "123 Lê Văn Việt",
-  "city": "Hồ Chí Minh",
+  "city": "Thành Phố Hồ Chí Minh",
   "district": "Quận 9",
   "ward": "Phường Hiệp Phú",
   "latitude": 10.8459231,

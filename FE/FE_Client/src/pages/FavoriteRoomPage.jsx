@@ -42,7 +42,7 @@ export default function FavoriteRooms() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] font-sans">
-      <Header />
+      
 
       {/* Header Section */}
       <section className="bg-white border-b border-gray-100 pt-32 pb-12">

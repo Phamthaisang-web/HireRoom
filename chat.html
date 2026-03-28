@@ -79,7 +79,7 @@
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 userId: user.id,
-                staffId: 6, // admin
+                staffId: 1, // admin
               }),
             },
           );
@@ -87,7 +87,7 @@
           const conv = await res.json();
 
           currentConversationId = conv.id;
-          receiverId = 6;
+          receiverId = 1;
 
           socket.emit("joinConversation", currentConversationId);
 

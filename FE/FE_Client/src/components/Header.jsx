@@ -93,35 +93,14 @@ export default function Header() {
           </form>
 {/* NAV LINKS */}
   <nav className="hidden lg:flex items-center gap-6 shrink-0">
-    {/* Dropdown Tất cả phòng */}
-    <div className="relative group py-4">
-      <button className="hidden lg:flex items-center gap-1.5 text-[13px] font-medium text-gray-600 hover:text-red-600 transition-colors">
-        Tất cả phòng <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
-      </button>
-
-      {/* Dropdown Menu - Hiện khi hover */}
-      <div className="absolute top-full left-0 w-48 bg-white shadow-xl rounded-2xl border border-gray-50 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-200 z-[1001]">
-        <Link 
-          to="/rooms?type=phòng trọ" 
-          className="flex items-center justify-between px-4 py-2.5 text-[13px] text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors"
-        >
-          Phòng trọ <ChevronRight size={12} />
-        </Link>
-        <Link 
-          to="/rooms?type=chung cư" 
-          className="flex items-center justify-between px-4 py-2.5 text-[13px] text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors"
-        >
-          Phòng chung cư <ChevronRight size={12} />
-        </Link>
-        <div className="h-px bg-gray-50 my-1 mx-2" />
-        <Link 
-          to="/rooms" 
-          className="flex items-center justify-between px-4 py-2.5 text-[13px] font-bold text-gray-800 hover:bg-gray-50 transition-colors"
-        >
-          Xem tất cả <ChevronRight size={12} />
-        </Link>
-      </div>
-    </div>
+    <Link to= {""}className="hidden lg:flex items-center gap-1.5 text-[13px] font-medium text-gray-600 hover:text-red-600 transition-colors">
+      Phòng trọ
+    </Link>
+    <Link to= {""}className="hidden lg:flex items-center gap-1.5 text-[13px] font-medium text-gray-600 hover:text-red-600 transition-colors">
+      Chung cư
+    </Link>
+    
+    
 
     {/* Sự kiện Link */}
     <Link 
@@ -179,6 +158,7 @@ export default function Header() {
                     <div className="px-2 space-y-0.5">
                      
                       <Link to={"/favorites"} ><UserMenuItem icon={<Heart size={18}/>} title="Phòng đã yêu thích" /></Link>
+                      <Link to={"/profile"} ><UserMenuItem icon={<Heart size={18}/>} title="Trang cá nhân" /></Link>
                       <UserMenuItem icon={<LogOut size={18} className="text-red-500"/>} title="Đăng xuất" onClick={handleLogout} />
                     </div>
                   </div>
@@ -187,9 +167,8 @@ export default function Header() {
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              <button onClick={() => setIsLoginOpen(true)} className="text-[13px] font-medium text-gray-700 hover:text-red-600">Đăng nhập | Đăng ký</button>
-              
-              
+              <button onClick={() => setIsLoginOpen(true)} className="text-[13px] font-medium text-gray-700 hover:text-red-600">Đăng nhập</button>
+  
             </div>
           )}
         </div>

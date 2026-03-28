@@ -42,7 +42,7 @@ export default function RoomDetailPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] pb-10 font-sans text-gray-800">
-      <Header />
+    
 
       <main className="max-w-5xl mx-auto px-4 mt-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
