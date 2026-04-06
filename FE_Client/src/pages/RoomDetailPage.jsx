@@ -188,17 +188,31 @@ export default function RoomDetailPage() {
                 </div>
               </div>
 
-              {room.landlordId && (
-                <div className="mt-6 p-4 bg-blue-50/50 rounded-2xl border border-blue-100/50">
-                  <p className="text-[10px] font-bold text-blue-500 uppercase mb-2">Thông tin liên hệ</p>
-                  <p className="text-sm font-bold text-gray-800">Nguyễn Việt Anh</p>
-                  <p className="text-xs text-blue-600 font-semibold mt-1">SĐT: 0395888573</p>
-                </div>
-              )}
+             
+              <div className="mt-6 p-4 bg-blue-50/50 rounded-2xl border border-blue-100/50">
+  <p className="text-[10px] font-bold text-blue-500 uppercase mb-2">Thông tin liên hệ</p>
+  <p className="text-sm font-bold text-gray-800">Nguyễn Việt Anh</p>
+  
+  {/* Thẻ a với href zalo.me */}
+  <a 
+    href="https://zalo.me/0395888573" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="inline-block text-xs text-blue-600 font-semibold mt-1 hover:underline cursor-pointer"
+  >
+    SĐT: 0395888573 (Nhấn để Chat Zalo)
+  </a>
 
-              <button className="w-full mt-6 bg-gray-900 text-white py-3.5 rounded-xl text-xs font-bold hover:bg-black transition-all uppercase tracking-widest shadow-lg shadow-gray-200 active:scale-95">
-                Gọi điện ngay
-              </button>
+  {/* Hoặc làm thành một cái Button hẳn hoi cho đẹp */}
+  <button 
+    onClick={() => window.open('https://zalo.me/0395888573', '_blank')}
+    className="w-full mt-3 bg-blue-600 text-white text-[10px] font-black uppercase py-2 rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center justify-center gap-2"
+  >
+    Chat qua Zalo
+  </button>
+</div>
+
+              
             </div>
           </div>
         </div>

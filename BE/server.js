@@ -9,7 +9,7 @@ const mongooseDbOptions = {
 };
 const PORT = 8080;
 mongoose
-  .connect("mongodb://localhost:27017/hireroom", mongooseDbOptions)
+  .connect("mongodb+srv://nguyenvietanh:X3JS3pFAA9cSRV2L@hireroom.sng7rpd.mongodb.net/?appName=hireroom", mongooseDbOptions)
   .then(() => {
     console.log("✅ Connected to MongoDB");
     app.listen(PORT, () => {

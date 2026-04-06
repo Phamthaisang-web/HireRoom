@@ -7,18 +7,24 @@ const api = axios.create({
   baseURL: BASE_URL,
 });
 
-// Hàm hỗ trợ lấy role từ token
 export const getUserRole = () => {
   const token = localStorage.getItem("token");
   if (!token) return null;
   try {
     const decoded = jwtDecode(token);
-    return decoded.role; // Giả sử backend lưu field là "role"
+    
+    // Kiểm tra thời gian hết hạn (exp) của token
+    const currentTime = Date.now() / 1000;
+    if (decoded.exp < currentTime) {
+      localStorage.removeItem("token");
+      return null;
+    }
+    
+    return decoded.role; 
   } catch (error) {
     return null;
   }
 };
-
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");

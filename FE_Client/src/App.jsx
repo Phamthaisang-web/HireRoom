@@ -19,6 +19,7 @@ import RoomPageAdmin from "./pages/admins/RoomsPageAdmin";
 import LandlordsPageAdmin from "./pages/admins/LandlordsPageAdmin";
 import UsersPageAdmin from "./pages/admins/UsersPageAdmin"; // Nếu có trang quản lý user
 import EventsPageAdmin from "./pages/admins/EventsPageAdmin";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -36,7 +37,7 @@ function App() {
             <Route path="favorites" element={<FavoriteRooms />} />
             <Route path="events" element={<EventsPage />} />
           </Route>
-
+<Route element={<ProtectedRoute />}>
           {/* GROUP 2: GIAO DIỆN QUẢN TRỊ (ADMIN) */}
           <Route path="/admin" element={<AdminLayout />}>
             {/* 1. Trang mặc định khi vào /admin: Chuyển hướng hoặc hiện Dashboard */}
@@ -54,7 +55,7 @@ function App() {
             {/* 5. Quản lý sự kiện: /admin/events */}
             <Route path="events" element={<EventsPageAdmin />} />
           </Route>
-
+</Route>
           {/* Trang 404 - Nếu rảnh bạn nên làm thêm trang này */}
           <Route path="*" element={<div className="p-20 text-center">404 - Trang không tồn tại</div>} />
 
