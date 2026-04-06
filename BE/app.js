@@ -49,7 +49,9 @@ app.post("/api/uploads", upload.array("images", 10), (req, res) => {
   }
 
   // Trả về url dạng /uploads/tenfile.jpg để frontend dễ dùng
-  const filePaths = req.files.map((file) => `/uploads/${file.filename}`);
+  const filePaths = req.files.map(
+  (file) => `${req.protocol}://${req.get("host")}/api/uploads/${file.filename}`
+);
   res.json({
     message: "Upload danh sách ảnh thành công",
     urls: filePaths,

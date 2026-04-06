@@ -54,6 +54,7 @@ export default function HomePage() {
                 ? url 
                 : `${BASE_URL}${url.startsWith('/') ? '' : '/'}${url}`;
             }
+            console.log("URL ảnh phòng:", mainImage);
           }
 
           return { 

@@ -9,7 +9,7 @@ export default function EventsPage() {
 
   // Cấu hình URL từ môi trường
   const API_URL = import.meta.env.VITE_API_URL;
-
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 
   useEffect(() => {
     const fetchEvents = async () => {
