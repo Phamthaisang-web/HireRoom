@@ -34,11 +34,7 @@ export default function MainLayoutAdmin() {
       icon: <HomeOutlined />,
       label: "Phòng cho thuê",
     },
-    {
-      key: "/admin/users",
-      icon: <UserOutlined />,
-      label: "Người dùng",
-    },
+  
     {
       key: "/admin/events",
       icon: <NotificationOutlined />,
