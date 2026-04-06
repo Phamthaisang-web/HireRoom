@@ -11,50 +11,57 @@ GET http://localhost:8080/rooms?keyword=quận 9
 GET http://localhost:8080/rooms?status=còn trống
 
 ### Lọc theo thành phố
-GET http://localhost:8080/rooms?city=Hồ Chí Minh
+GET http://localhost:8080/api/rooms?city=Hồ Chí Minh
 
 ### Lọc theo quận
 GET http://localhost:8080/rooms?district=Quận 9
 
 ### Lọc theo loại phòng
-GET http://localhost:8080/rooms?city=Hồ chí minh
+GET http://localhost:8080/api/rooms?city=Hồ
 
 ### Lọc theo giá
-GET http://localhost:8080/rooms?minPrice=2000000&maxPrice=5000000
+GET http://localhost:8080/api/rooms?minPrice=2000000&maxPrice=5000000
 
 ### Lọc theo chủ trọ
 GET http://localhost:8080/rooms?landlordId=1
 
 ### Lọc tổng hợp
-GET http://localhost:8080/rooms?page=1&limit=10&keyword=gần đại học&status=còn trống&city=Hồ Chí Minh&district=Quận 9&type=phòng trọ&minPrice=2000000&maxPrice=5000000&landlordId=1
+GET http://localhost:8080/api/rooms?page=1&limit=10
 
 ### Lấy chi tiết phòng theo id
-GET http://localhost:8080/rooms/1
+GET http://localhost:8080/api/rooms/69d33a2c3f6cc1eeb5d2e9db
 
 ### Tạo phòng mới
-POST http://localhost:8080/rooms
+POST http://localhost:8080/api/rooms
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0Njk0ODQ0LCJleHAiOjE3NzQ3ODEyNDR9.UT6rwCHFMQGUZ2m_B7Up6IuMShhecsXqnXY9FaZKdpU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDI2ZTg1MzAxYzI2MDJiZjM3MjIwZCIsInJvbGUiOiJhZG1pbiIsImZ1bGxOYW1lIjoiU2FuZ3VzZXIiLCJpYXQiOjE3NzUzOTg2MDQsImV4cCI6MTc3NTQ4NTAwNH0.7EoWzx-8xwTHUocgx8XJbMqDBzn8VeLGCLFi4c2LOn0
 
 {
-  "title": "Phòng trọ gần duysssss tân",
-  "description": "Phòng rộng, sạch sẽ, gần trường, giờ giấc tự do",
-  "price": 3500000,
+  "title": "Phòng trọ cao cấp trung tâm Quận 1 - Đầy đủ tiện nghi",
+  "description": "Phòng rộng, thoáng mát, có ban công riêng, giờ giấc tự do, không chung chủ.",
+  "price": 5500000,
   "area": 25,
-  "address": "123 Lê Văn Việt",
-  "city": "Thành Phố Hồ Chí Minh",
-  "district": "Quận 9",
-  "ward": "Phường Hiệp Phú",
-  "latitude": 10.8459231,
-  "longitude": 106.7943211,
+  "address": "123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM",
+  "city": "Hồ Chí Minh",
+  "district": "Quận 1",
+  "ward": "Phường Bến Thành",
   "status": "còn trống",
-  "type": "Chung cư",
+  "type": "Căn hộ mini",
   "electricPrice": 3500,
-  "waterPrice": 15000,
-  "internetPrice": 100000,
+  "waterPrice": 100000,
+  "internetPrice": 150000,
   "maxPeople": 3,
-  "furniture": "máy lạnh, tủ lạnh, giường",
-  "landlordId": 1
+  "furniture": "Máy lạnh, Tủ lạnh, Giường nệm, Tủ quần áo, Máy giặt",
+  "latitude": 10.7719,
+  "longitude": 106.6991,
+  "landlordId": "69d26ccc965e1573eff97449",
+  "images": [
+    {
+      "url": "/uploads/room1.jpg",
+      "public_id": "rooms/room1",
+      "isThumbnail": true
+    }
+  ]
 }
 
 ### Tạo phòng thiếu dữ liệu

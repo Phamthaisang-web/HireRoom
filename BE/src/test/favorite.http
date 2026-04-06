@@ -1,60 +1,43 @@
-### ❤️ Toggle favorite (like / unlike)
-POST http://localhost:8080/favorites/toggle
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0NjA1NTk4LCJleHAiOjE3NzQ2OTE5OTh9.ZTMSaWV-J3j9IJm8inoPDqhrW6Cv7P84I_InvLgNjXk
+@baseUrl = http://localhost:8080/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDI2ZTg1MzAxYzI2MDJiZjM3MjIwZCIsInJvbGUiOiJhZG1pbiIsImZ1bGxOYW1lIjoiU2FuZ3VzZXIiLCJpYXQiOjE3NzU0NjkwOTQsImV4cCI6MTc3NTU1NTQ5NH0.IQSVyttaH_oEArLvUNAq4acDEuNz4VZeMcljFlhbgkk
+
+### ❤️ Toggle favorite (Like / Unlike)
+POST {{baseUrl}}/favorites/toggle
+Authorization: Bearer {{token}}
+Content-Type: application/json
 
 {
-  "roomId": 2
+  "roomId": "69d33d763f6cc1eeb5d2e9e0"
 }
 
-###
+### 📌 Lấy danh sách phòng đã yêu thích của tôi
+GET {{baseUrl}}/favorites/me
+Authorization: Bearer {{token}}
 
-### ❤️ Toggle lại (unlike)
-POST http://localhost:8080/favorites/toggle
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0NjA1NTk4LCJleHAiOjE3NzQ2OTE5OTh9.ZTMSaWV-J3j9IJm8inoPDqhrW6Cv7P84I_InvLgNjXk
+### 🔍 Kiểm tra 1 phòng cụ thể đã favorite chưa
+GET {{baseUrl}}/favorites/check/69d33d763f6cc1eeb5d2e9e0
+Authorization: Bearer {{token}}
+
+### ❌ Test lỗi: Thiếu token
+POST {{baseUrl}}/favorites/toggle
 Content-Type: application/json
 
 {
-  "roomId": 1
+  "roomId": "69d33d763f6cc1eeb5d2e9e0"
 }
 
-###
+### ❌ Test lỗi: Thiếu roomId
+POST {{baseUrl}}/favorites/toggle
+Authorization: Bearer {{token}}
+Content-Type: application/json
 
-### 📌 Lấy danh sách phòng đã yêu thích
-GET http://localhost:8080/favorites/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0NjA1NTk4LCJleHAiOjE3NzQ2OTE5OTh9.ZTMSaWV-J3j9IJm8inoPDqhrW6Cv7P84I_InvLgNjXk
+{ }
 
-###
-
-### 🔍 Check 1 phòng đã favorite chưa
-GET http://localhost:8080/favorites/check/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0NjA1NTk4LCJleHAiOjE3NzQ2OTE5OTh9.ZTMSaWV-J3j9IJm8inoPDqhrW6Cv7P84I_InvLgNjXk
-
-###
-
-### ❌ Test thiếu token
-POST http://localhost:8080/favorites/toggle
+### ❌ Test lỗi: RoomId không hợp lệ (Sai định dạng ObjectId)
+POST {{baseUrl}}/favorites/toggle
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "roomId": 1
-}
-
-###
-
-### ❌ Test thiếu roomId
-POST http://localhost:8080/favorites/toggle
-Authorization: Bearer YOUR_TOKEN_HERE
-Content-Type: application/json
-
-{}
-
-###
-
-### ❌ Test room không tồn tại
-POST http://localhost:8080/favorites/toggle
-Authorization: Bearer YOUR_TOKEN_HERE
-Content-Type: application/json
-
-{
-  "roomId": 9999
+  "roomId": "123"
 }

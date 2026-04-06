@@ -1,17 +1,26 @@
-POST http://localhost:8080/auth/register
+POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
   "fullName": "Sanguser",
   "phone": "0123456780",
   "password": "123456",
-  "role": "user"
+  "role": "admin"
 }
 ###
-POST http://localhost:8080/auth/login
+POST http://localhost:8080/api/auth/login
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0ODY4OTc0LCJleHAiOjE3NzQ5NTUzNzR9.JUOdNI3FSPC4oIiMxSk9ZHNDARUQtcncYa5fuLt-8Bw
 
 {
-  "phone": "0123456789",
+  "phone": "0123456780",
+  "password": "123456" 
+}
+###
+POST http://localhost:8080/api/auth/change-password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0ODY4OTc0LCJleHAiOjE3NzQ5NTUzNzR9.JUOdNI3FSPC4oIiMxSk9ZHNDARUQtcncYa5fuLt-8Bw
+
+{
   "password": "123456" 
 }

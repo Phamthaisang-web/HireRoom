@@ -8,22 +8,22 @@ GET http://localhost:8080/landlords?page=1&limit=5
 GET http://localhost:8080/landlords?keyword=Nguyen
 
 ### Lấy danh sách chủ trọ có lọc theo trạng thái
-GET http://localhost:8080/landlords?status=đang hợp tác
+GET http://localhost:8080/api/landlords?status=đang hợp tác
 
 ### Lấy danh sách chủ trọ có tìm kiếm + lọc + phân trang
-GET http://localhost:8080/landlords?page=1&limit=10&keyword=0909&status=đang hợp tác
+GET http://localhost:8080/api/landlords?page=1&limit=10&keyword=0909&status=đang hợp tác
 
 ### Lấy chi tiết chủ trọ theo id
-GET http://localhost:8080/landlords/1
+GET http://localhost:8080/api/landlords
 
 ### Tạo mới chủ trọ
-POST http://localhost:8080/landlords
+POST http://localhost:8080/api/landlords
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0NjA1NTk4LCJleHAiOjE3NzQ2OTE5OTh9.ZTMSaWV-J3j9IJm8inoPDqhrW6Cv7P84I_InvLgNjXk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5ndXNlciIsImlhdCI6MTc3NTM5NTY1MywiZXhwIjoxNzc1NDgyMDUzfQ.-ZdhWMR9hBS0J0ue-BuMe6K08Oc5ii75tAo5UPjxNdQ
 
 {
   "fullName": "Nguyen Van A",
-  "phone": "0909123456",
+  "phone": "0909323456",
   "zalo": "0909123456",
   "facebook": "https://facebook.com/nguyenvana",
   "note": "Chủ trọ khu vực quận 9, hợp tác lâu dài",

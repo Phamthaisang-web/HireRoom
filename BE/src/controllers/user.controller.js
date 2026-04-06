@@ -28,8 +28,25 @@ const getuserById = async (req, res) => {
     });
   }
 };
+const changePassword = async (req, res) => {
+  try {
+    const data = req.body;
+
+    const result = await authService.changePassword(data);
+
+    res.status(200).json({
+      status: 200,
+      message: result.message,
+    });
+  } catch (e) {
+    res.status(400).json({
+      error: e.message,
+    });
+  }
+};
+
 module.exports = {
-  getAlluser,
-  getuserById
- 
+  register,
+  login,
+  changePassword, // thêm dòng này
 };

@@ -1,7 +1,7 @@
 ### =================================================================
 ### BIẾN TOÀN CỤC (Thay đổi giá trị ở đây để áp dụng cho toàn bộ file)
 ### =================================================================
-@baseUrl = http://localhost:8080
+@baseUrl = http://localhost:8080/api
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... (Dán Token Admin của bạn vào đây)
 @eventId = 1
 
@@ -22,7 +22,7 @@ Content-Type: application/json
 ### -----------------------------------------------------------------
 POST {{baseUrl}}/events
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZnVsbE5hbWUiOiJTYW5nIiwiaWF0IjoxNzc0NjA1NTk4LCJleHAiOjE3NzQ2OTE5OTh9.ZTMSaWV-J3j9IJm8inoPDqhrW6Cv7P84I_InvLgNjXk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDI2ZTg1MzAxYzI2MDJiZjM3MjIwZCIsInJvbGUiOiJhZG1pbiIsImZ1bGxOYW1lIjoiU2FuZ3VzZXIiLCJpYXQiOjE3NzU0MDA0NzcsImV4cCI6MTc3NTQ4Njg3N30.6Oz4PndWbVPs803A9mD1vs_OX18B36zzgLHb0uqtFwo
 
 {
   "title": "Hội thảo Tìm kiếm Nhà trọ Giá rẻ 2026",

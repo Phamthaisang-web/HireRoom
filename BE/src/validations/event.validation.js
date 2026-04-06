@@ -1,62 +1,71 @@
 const yup = require("yup");
-
-const eventSchema = {
+const eventValidationRules = {
   title: yup
     .string()
-    .required("Tiêu đề không được để trống")
-    .max(255, "Tiêu đề tối đa 255 ký tự"),
-  
+    .trim()
+    .required("Tiêu đề sự kiện không được để trống")
+    .max(255, "Tiêu đề không được vượt quá 255 ký tự"),
+
   description: yup
     .string()
-    .required("Mô tả không được để trống"),
+    .trim()
+    .required("Mô tả sự kiện là bắt buộc"),
 
-  image: yup
-    .string()
+  // ĐỔI TỪ 'image' SANG 'images' VÀ KIỂM TRA DẠNG MẢNG
+  images: yup
+    .array()
+    .of(
+      yup.object().shape({
+        url: yup.string().required(),
+        public_id: yup.string().nullable(),
+        isThumbnail: yup.boolean().default(false)
+      })
+    )
     .nullable()
-    .url("Link ảnh phải là một URL hợp lệ"),
+    .default([]),
 
   startDate: yup
     .date()
-    .typeError("Ngày bắt đầu không hợp lệ")
+    .typeError("Ngày bắt đầu không đúng định dạng")
     .required("Ngày bắt đầu là bắt buộc"),
+    // Giữ nguyên phần test "is-future" của bạn
 
   endDate: yup
     .date()
-    .typeError("Ngày kết thúc không hợp lệ")
+    .typeError("Ngày kết thúc không đúng định dạng")
     .required("Ngày kết thúc là bắt buộc")
-    // Kiểm tra logic: Ngày kết thúc phải sau ngày bắt đầu
-    .min(yup.ref('startDate'), "Ngày kết thúc không thể trước ngày bắt đầu"),
+    .test(
+      "is-after-start",
+      "Ngày kết thúc phải sau ngày bắt đầu",
+      function (value) {
+        const { startDate } = this.parent;
+        return value && startDate ? new Date(value) > new Date(startDate) : true;
+      }
+    ),
 
   location: yup
     .string()
-    .required("Địa điểm không được để trống"),
+    .trim()
+    .required("Địa điểm tổ chức không được để trống"),
 
   status: yup
     .string()
-    .oneOf(['sắp diễn ra', 'đang diễn ra', 'đã kết thúc'], "Trạng thái không hợp lệ")
-    .default('sắp diễn ra'),
-
- 
+    .oneOf(["sắp diễn ra", "đang diễn ra", "đã kết thúc"], "Trạng thái không hợp lệ")
+    .default("sắp diễn ra"),
 };
-
-// Schema cho việc tạo mới (Yêu cầu đầy đủ các trường chính)
 const createEventSchema = yup.object().shape({
-  ...eventSchema
+  ...eventValidationRules,
 });
 
-// Schema cho việc cập nhật (Các trường là tùy chọn nhưng nếu có phải đúng định dạng)
-const updateEventSchema = yup.object().shape({
-  title: eventSchema.title.notRequired(),
-  description: eventSchema.description.notRequired(),
-  image: eventSchema.image.notRequired(),
-  startDate: eventSchema.startDate.notRequired(),
-  endDate: eventSchema.endDate.notRequired(),
-  location: eventSchema.location.notRequired(),
-  status: eventSchema.status.notRequired(),
-  // Thông thường createdBy không cho phép update qua API này
-});
+const updateEventSchema = yup.object().shape(
+  Object.keys(eventValidationRules).reduce((acc, key) => {
+    if (key !== "createdBy") {
+      // Đối với Update, chúng ta cho phép các trường có thể null/trống
+      // nhưng nếu có nhập thì phải đúng định dạng của Rules bên trên.
+      acc[key] = eventValidationRules[key].optional();
+    }
+    return acc;
+  }, {})
+);
 
-module.exports = {
-  createEventSchema,
-  updateEventSchema,
-};
+module.exports = { createEventSchema, updateEventSchema };

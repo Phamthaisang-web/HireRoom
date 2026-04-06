@@ -35,8 +35,15 @@ const loginUserSchema = yup.object({
     .required("password không được để trống")
     .min(6, "password tối thiểu 6 ký tự"),
 });
+const changePasswordSchema = yup.object({
 
+  oldPassword: yup.string().required("Mật khẩu cũ là bắt buộc"),
+  newPassword: yup
+    .string()
+    .min(6, "Mật khẩu mới ít nhất 6 ký tự")
+    .required("Mật khẩu mới là bắt buộc"),
+});
 module.exports = {
   registerUserSchema,
-  loginUserSchema,
+  loginUserSchema,changePasswordSchema
 };

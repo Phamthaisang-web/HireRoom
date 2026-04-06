@@ -1,218 +1,73 @@
-// src/validations/room.validation.js
 const yup = require("yup");
 
-// Validation khi tạo phòng mới
-const createRoomSchema = yup.object({
-  title: yup
-    .string()
-    .required("title không được để trống")
-    .max(255, "title tối đa 255 ký tự"),
+// Regex kiểm tra định dạng ObjectId của MongoDB
+const objectIdRegex = /^[0-9a-fA-F]{24}$/;
 
-  description: yup
-    .string()
-    .nullable()
-    .notRequired(),
-
-  price: yup
-    .number()
-    .required("price không được để trống")
-    .min(0, "price phải lớn hơn hoặc bằng 0"),
-
-  area: yup
-    .number()
-    .required("area không được để trống")
-    .min(0, "area phải lớn hơn hoặc bằng 0"),
-
-  address: yup
-    .string()
-    .required("address không được để trống")
-    .max(255, "address tối đa 255 ký tự"),
-
-  city: yup
-    .string()
-    .nullable()
-    .notRequired()
-    .max(100, "city tối đa 100 ký tự"),
-
-  district: yup
-    .string()
-    .nullable()
-    .notRequired()
-    .max(100, "district tối đa 100 ký tự"),
-
-  ward: yup
-    .string()
-    .nullable()
-    .notRequired()
-    .max(100, "ward tối đa 100 ký tự"),
-
-  latitude: yup
-    .number()
-    .nullable()
-    .notRequired()
-    .min(-90, "latitude phải từ -90 đến 90")
-    .max(90, "latitude phải từ -90 đến 90"),
-
-  longitude: yup
-    .number()
-    .nullable()
-    .notRequired()
-    .min(-180, "longitude phải từ -180 đến 180")
-    .max(180, "longitude phải từ -180 đến 180"),
-
-  status: yup
-    .string()
-    .nullable()
-    .notRequired()
-    .oneOf(["còn trống", "đã thuê"], "status phải là 'còn trống' hoặc 'đã thuê'")
-    .default("còn trống"),
-
-  type: yup
-    .string()
-    .nullable()
-    .notRequired()
-    .max(50, "type tối đa 50 ký tự"),
-
-  electricPrice: yup
-    .number()
-    .nullable()
-    .notRequired()
-    .min(0, "electricPrice phải lớn hơn hoặc bằng 0"),
-
-  waterPrice: yup
-    .number()
-    .nullable()
-    .notRequired()
-    .min(0, "waterPrice phải lớn hơn hoặc bằng 0"),
-
-  internetPrice: yup
-    .number()
-    .nullable()
-    .notRequired()
-    .min(0, "internetPrice phải lớn hơn hoặc bằng 0"),
-
-  maxPeople: yup
-    .number()
-    .nullable()
-    .notRequired()
-    .min(1, "maxPeople phải lớn hơn hoặc bằng 1"),
-
-  furniture: yup
-    .string()
-    .nullable()
-    .notRequired(),
-
-  landlordId: yup
-    .number()
-    .required("landlordId không được để trống")
-    .min(1, "landlordId phải lớn hơn 0"),
+// Schema con cho từng tấm ảnh
+const imageSchema = yup.object({
+  url: yup.string().required("URL ảnh không được để trống"),
+  public_id: yup.string().nullable(),
+  isThumbnail: yup.boolean().default(false)
 });
 
-// Validation khi cập nhật phòng (không bắt buộc tất cả trường)
+// 1. Định nghĩa Schema tạo mới
+const createRoomSchema = yup.object({
+  title: yup.string().required("Tiêu đề không được để trống").max(255),
+  description: yup.string().nullable(),
+  price: yup.number().required("Giá thuê không được để trống").min(0),
+  area: yup.number().required("Diện tích không được để trống").min(0),
+  address: yup.string().required("Địa chỉ không được để trống"),
+  city: yup.string().nullable(),
+  district: yup.string().nullable(),
+  ward: yup.string().nullable(),
+  
+  // Xử lý để nhận giá trị null/rỗng từ frontend mà không lỗi number
+  latitude: yup.number().nullable().transform((curr, orig) => orig === "" ? null : curr).min(-90).max(90),
+  longitude: yup.number().nullable().transform((curr, orig) => orig === "" ? null : curr).min(-180).max(180),
+  
+  status: yup.string().oneOf(["còn trống", "đã thuê"]).default("còn trống"),
+  type: yup.string().nullable(),
+  electricPrice: yup.number().nullable().min(0),
+  waterPrice: yup.number().nullable().min(0),
+  internetPrice: yup.number().nullable().min(0),
+  maxPeople: yup.number().nullable().min(1),
+  furniture: yup.string().nullable(),
+  
+  // --- THÊM TRƯỜNG IMAGES Ở ĐÂY ---
+  images: yup.array()
+    .of(imageSchema)
+    .min(1, "Vui lòng tải lên ít nhất một ảnh")
+    .required("Danh sách ảnh là bắt buộc"),
+
+  landlordId: yup.string()
+    .required("landlordId không được để trống")
+    .matches(objectIdRegex, "ID chủ trọ không hợp lệ")
+});
+
+// 2. Định nghĩa Schema cập nhật
 const updateRoomSchema = yup.object({
-  title: yup
-    .string()
-    .notRequired()
-    .max(255, "title tối đa 255 ký tự"),
-
-  description: yup
-    .string()
-    .nullable()
-    .notRequired(),
-
-  price: yup
-    .number()
-    .notRequired()
-    .min(0, "price phải lớn hơn hoặc bằng 0"),
-
-  area: yup
-    .number()
-    .notRequired()
-    .min(0, "area phải lớn hơn hoặc bằng 0"),
-
-  address: yup
-    .string()
-    .notRequired()
-    .max(255, "address tối đa 255 ký tự"),
-
-  city: yup
-    .string()
-    .nullable()
-    .notRequired()
-    .max(100, "city tối đa 100 ký tự"),
-
-  district: yup
-    .string()
-    .nullable()
-    .notRequired()
-    .max(100, "district tối đa 100 ký tự"),
-
-  ward: yup
-    .string()
-    .nullable()
-    .notRequired()
-    .max(100, "ward tối đa 100 ký tự"),
-
-  latitude: yup
-    .number()
-    .nullable()
-    .notRequired()
-    .min(-90, "latitude phải từ -90 đến 90")
-    .max(90, "latitude phải từ -90 đến 90"),
-
-  longitude: yup
-    .number()
-    .nullable()
-    .notRequired()
-    .min(-180, "longitude phải từ -180 đến 180")
-    .max(180, "longitude phải từ -180 đến 180"),
-
-  status: yup
-    .string()
-    .nullable()
-    .notRequired()
-    .oneOf(["còn trống", "đã thuê"], "status phải là 'còn trống' hoặc 'đã thuê'"),
-
-  type: yup
-    .string()
-    .nullable()
-    .notRequired()
-    .max(50, "type tối đa 50 ký tự"),
-
-  electricPrice: yup
-    .number()
-    .nullable()
-    .notRequired()
-    .min(0, "electricPrice phải lớn hơn hoặc bằng 0"),
-
-  waterPrice: yup
-    .number()
-    .nullable()
-    .notRequired()
-    .min(0, "waterPrice phải lớn hơn hoặc bằng 0"),
-
-  internetPrice: yup
-    .number()
-    .nullable()
-    .notRequired()
-    .min(0, "internetPrice phải lớn hơn hoặc bằng 0"),
-
-  maxPeople: yup
-    .number()
-    .nullable()
-    .notRequired()
-    .min(1, "maxPeople phải lớn hơn hoặc bằng 1"),
-
-  furniture: yup
-    .string()
-    .nullable()
-    .notRequired(),
-
-  landlordId: yup
-    .number()
-    .nullable()
-    .notRequired()
-    .min(1, "landlordId phải lớn hơn 0"),
+  title: yup.string().notRequired().max(255),
+  description: yup.string().nullable().notRequired(),
+  price: yup.number().notRequired().min(0),
+  area: yup.number().notRequired().min(0),
+  address: yup.string().notRequired(),
+  city: yup.string().nullable().notRequired(),
+  district: yup.string().nullable().notRequired(),
+  ward: yup.string().nullable().notRequired(),
+  latitude: yup.number().nullable().notRequired().transform((curr, orig) => orig === "" ? null : curr),
+  longitude: yup.number().nullable().notRequired().transform((curr, orig) => orig === "" ? null : curr),
+  status: yup.string().notRequired().oneOf(["còn trống", "đã thuê"]),
+  type: yup.string().nullable().notRequired(),
+  electricPrice: yup.number().nullable().notRequired().min(0),
+  waterPrice: yup.number().nullable().notRequired().min(0),
+  internetPrice: yup.number().nullable().notRequired().min(0),
+  maxPeople: yup.number().nullable().notRequired().min(1),
+  furniture: yup.string().nullable().notRequired(),
+  
+  // Update có thể không cần gửi lại toàn bộ ảnh nếu không thay đổi
+  images: yup.array().of(imageSchema).notRequired(),
+  
+  landlordId: yup.string().notRequired().matches(objectIdRegex, "ID chủ trọ không hợp lệ")
 });
 
 module.exports = {
